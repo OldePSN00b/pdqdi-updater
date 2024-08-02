@@ -1,1 +1,1 @@
-So this is my first attempt to build a powershell script that updates PDQ Deploy and Inventory which can be run manually or via scheduled task. This is a very rough attempt at functionality and ymmv.
+This seems to work correctly. I'm wondering if there's any way to automate opening the programs after upgrade so the database can update. Might look at that later.
