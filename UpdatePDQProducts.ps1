@@ -9,6 +9,9 @@
 
 #So here we query the needed version information, this uses PDQStuff Get-PdqInstalledVersion and Get-PDQLatestVersion and set the download location.
 $downloadpath = "C:\windows\Temp"
+$programFolder = "C:\Program Files (x86)\Admin Arsenal"
+$InventoryProcessName = "PDQInventoryConsole" 
+$DeployProcessName = "PDQDeployConsole" 
 $DeployCurrentVersion = Get-PdqInstalledVersion -Product 'Deploy'
 $InventoryCurrentVersion = Get-PdqInstalledVersion -Product 'Inventory'
 $DeployAvailableVersion = Get-PdqLatestVersion -Product 'Deploy'
@@ -21,11 +24,17 @@ If ($DeployCurrentVersion -lt $DeployAvailableVersion.version) {
     #Then we can tell them that we're going to grab it and install.
     Write-Host "Downloading Version $DeployAvailableVersion.version and Installing"
     #This pulls the download from the PDQ site and drops it in the specified download path
-    Invoke-WebRequest $DeployAvailableVersion.downloadUrl -OutFile $downloadpath\Deploy_$($DeployAvailableVersion.version).exe
+    Invoke-WebRequest $DeployAvailableVersion.downloadUrl -OutFile $downloadpath
     #Do the install
     Start-Process -FilePath $downloadpath\Deploy_$($DeployAvailableVersion.version).exe -ArgumentList "/S" -NoNewWindow -Wait
     #Clean up after ourselves, we're not slobs.
     Remove-Item -Path $downloadpath\Deploy_$($DeployAvailableVersion.version).exe
+    # Start the executable
+    Start-Process -FilePath "$($programFolder)\PDQ Deploy\$($DeployProcessName).exe"
+    # Wait for 3 minutes (180 seconds)
+    Start-Sleep -Seconds 180
+    # Get the process and kill it
+    Stop-Process -Name $DeployProcessName -Force	
     }else{
     #We don't have to do anything! That was easy.
     Write-Host "Current Deploy Version Installed!: $DeployCurrentVersion"
@@ -36,11 +45,17 @@ If ($InventoryCurrentVersion -lt $InventoryAvailableVersion.version) {
     #Then we can tell them that we're going to grab it and install.
     Write-Host "Downloading Version $InventoryAvailableVersion.version and Installing"
     #This pulls the download from the PDQ site and drops it in the specified download path
-    Invoke-WebRequest $InventoryAvailableVersion.downloadUrl -Outfile $downloadpath\Inventory_$($InventoryAvailableVersion.version).exe
+    Invoke-WebRequest $InventoryAvailableVersion.downloadUrl -Outfile $downloadpath
     #Do the install
     Start-Process -FilePath $downloadpath\Inventory_$($InventoryAvailableVersion.version).exe -ArgumentList "/S" -NoNewWindow -Wait
     #Clean up after ourselves, we're not slobs.
     Remove-Item -Path $downloadpath\Inventory_$($InventoryAvailableVersion.version).exe
+    # Start the executable
+    Start-Process -FilePath "$($programFolder)\PDQ Inventory\$($InventoryProcessName).exe"
+    # Wait for 3 minutes (180 seconds)
+    Start-Sleep -Seconds 180
+    # Get the process and kill it
+    $process = Get-Process -Name $InventoryProcessName -ErrorAction SilentlyContinue
     }else{
     #We don't have to do anything! That was easy.
     Write-Host "Current Inventory Version Installed!: $InventoryCurrentVersion"  
