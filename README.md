@@ -1,1 +1,1 @@
-This seems to work correctly. I'm wondering if there's any way to automate opening the programs after upgrade so the database can update. Might look at that later.
+This seems to work correctly. Got the program automation in for DB update. Be nice if the DB updated after software upgrade without having to launch the console once.
