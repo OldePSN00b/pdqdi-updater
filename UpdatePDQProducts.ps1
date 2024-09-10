@@ -55,7 +55,7 @@ If ($InventoryCurrentVersion -lt $InventoryAvailableVersion.version) {
     # Wait for 1 minute
     Start-Sleep -Seconds 60
     # Get the process and kill it
-    $process = Get-Process -Name $InventoryProcessName -ErrorAction SilentlyContinue
+    Stop-Process -Name $InventoryProcessName -Force
     }else{
     #We don't have to do anything! That was easy.
     Write-Host "Current Inventory Version Installed!: $InventoryCurrentVersion"  
