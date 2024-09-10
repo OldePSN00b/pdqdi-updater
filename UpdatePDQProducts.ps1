@@ -31,8 +31,8 @@ If ($DeployCurrentVersion -lt $DeployAvailableVersion.version) {
     Remove-Item -Path $downloadpath\Deploy_$($DeployAvailableVersion.version).exe
     # Start the executable
     Start-Process -FilePath "$($programFolder)\PDQ Deploy\$($DeployProcessName).exe"
-    # Wait for 3 minutes (180 seconds)
-    Start-Sleep -Seconds 180
+    # Wait for 1 minute 
+    Start-Sleep -Seconds 60
     # Get the process and kill it
     Stop-Process -Name $DeployProcessName -Force	
     }else{
@@ -52,8 +52,8 @@ If ($InventoryCurrentVersion -lt $InventoryAvailableVersion.version) {
     Remove-Item -Path $downloadpath\Inventory_$($InventoryAvailableVersion.version).exe
     # Start the executable
     Start-Process -FilePath "$($programFolder)\PDQ Inventory\$($InventoryProcessName).exe"
-    # Wait for 3 minutes (180 seconds)
-    Start-Sleep -Seconds 180
+    # Wait for 1 minute
+    Start-Sleep -Seconds 60
     # Get the process and kill it
     $process = Get-Process -Name $InventoryProcessName -ErrorAction SilentlyContinue
     }else{
