@@ -1,5 +1,5 @@
 #Author: OldePSN00b
-#Date: 2024-09-10
+#Date: 2024-11-07
 #Requires -Modules @{ ModuleName="PdqStuff"; RequiredVersion="6.1.1" } 
 
 #What am I doing? Can I write a module? Heck, I don't know, I'm a N00b so I'll start with a script. So this requires Colby Burma's PDQStuff Module 
