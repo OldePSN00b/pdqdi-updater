@@ -32,7 +32,7 @@ If ($DeployCurrentVersion -lt $DeployAvailableVersion.version) {
     # Start the executable
     Start-Process -FilePath "$($programFolder)\PDQ Deploy\$($DeployProcessName).exe"
     # Wait for 1 minute 
-    Start-Sleep -Seconds 60
+    Start-Sleep -Seconds 30
     # Get the process and kill it
     Stop-Process -Name $DeployProcessName -Force	
     }else{
@@ -53,7 +53,7 @@ If ($InventoryCurrentVersion -lt $InventoryAvailableVersion.version) {
     # Start the executable
     Start-Process -FilePath "$($programFolder)\PDQ Inventory\$($InventoryProcessName).exe"
     # Wait for 1 minute
-    Start-Sleep -Seconds 60
+    Start-Sleep -Seconds 30
     # Get the process and kill it
     Stop-Process -Name $InventoryProcessName -Force
     }else{
