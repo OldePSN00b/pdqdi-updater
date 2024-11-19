@@ -25,15 +25,15 @@ Invoke-Command -ComputerName $RemoteServer -ScriptBlock {
     $DeployProcessName = "PDQDeployConsole"
     If ($DeployCurrentVersion -lt $DeployCurrentVersion.version) {
         #Is there a new version available? If so, let's tell people.
-        Write-Host "New Deploy Version Available!:" $DeployCurrentVersion.version
+        Write-Host "New Deploy Version Available!:" $DeployAvailableVersion.version
         #Then we can tell them that we're going to grab it and install.
-        Write-Host "Downloading Version $DeployCurrentVersion.version and Installing"
+        Write-Host "Downloading Version $DeployAvailableVersion.version and Installing"
         #This pulls the download from the PDQ site and drops it in the specified download path
-        Invoke-RestMethod -Uri $DeployCurrentVersion.downloadUrl -OutFile "$DownloadPath\Deploy_$($DeployCurrentVersion.version).exe"
+        Invoke-RestMethod -Uri $DeployAvailableVersion.downloadUrl -OutFile "$DownloadPath\Deploy_$($DeployAvailableVersion.version).exe"
         #Do the install
-        Start-Process -FilePath $DownloadPath\Deploy_$($DeployCurrentVersion.version).exe -ArgumentList "/S" -NoNewWindow -Wait
+        Start-Process -FilePath $DownloadPath\Deploy_$($DeployAvailableVersion.version).exe -ArgumentList "/S" -NoNewWindow -Wait
         #Clean up after ourselves, we're not slobs.
-        Remove-Item -Path $DownloadPath\Deploy_$($DeployCurrentVersion.version).exe
+        Remove-Item -Path $DownloadPath\Deploy_$($DeployAvailableVersion.version).exe
         # Start the executable
         Write-Host "Restarting Deploy"
         Start-Process -FilePath "$ProgramFolder\PDQ Deploy\$DeployProcessName.exe"
